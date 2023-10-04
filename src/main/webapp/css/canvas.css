@@ -12,10 +12,8 @@ image {
 .point {
     width: 16px; /* Ширина точки */
     height: 16px; /* Высота точки */
-    background-color: green;
+    /*background-color: green;*/
     border-radius: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
 }
-
-

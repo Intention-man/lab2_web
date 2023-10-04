@@ -1,18 +1,18 @@
 const image = document.getElementById('image');
 const imageContainer = document.querySelector('.image-container');
-
-// Обработчик события клика на изображение
 imageContainer.addEventListener('click', (e) => {
 
     let r = document.getElementsByName("r")[0].value;
     if (isNumber(r) && r > 2 && r < 5) {
-        const {xPercentage, yPercentage} = calcCoords(e);
-        drawPoint(xPercentage, yPercentage);
-        addPointToStorage(xPercentage, yPercentage);
+        const {xPercentage, yPercentage} = calcCoordsFromClick(e);
+
         r = parseFloat(r)
-        const x = Math.round((xPercentage - 47) / 50 * 1.5 * r);
-        const y = -1 * ((yPercentage - 51) / 50 * 1.5 * r);
+        const x = Math.round((xPercentage - 47) / 50 * 1.35 * r);
+        const y = -1 * ((yPercentage - 51) / 50 * 1.35 * r);
+        const isInside = defineIsInside(x, y, r)
         if (isCorrect(x, y, r)) {
+            drawPoint(xPercentage, yPercentage, isInside);
+            addPointToStorage(xPercentage, yPercentage, isInside);
             sendRequestFromCanvas(x, y, r);
         } else {
             window.alert("At this point, at least one of the coordinates does not fall within the range of acceptable values");
@@ -22,17 +22,31 @@ imageContainer.addEventListener('click', (e) => {
     }
 });
 
+const sendButton = document.getElementById("send_button")
+sendButton.addEventListener('click', (e) => {
+    const r = document.getElementsByName("r")[0].value;
+    const y = document.getElementsByName("y")[0].value;
+    const x = Array.from(document.querySelectorAll('input[name=x]:checked'))[0].value;
+
+    const isInside = defineIsInside(x, y, r)
+    const {xPercentage, yPercentage} = calcCoordsFromForm(x, y, r);
+
+    drawPoint(xPercentage, yPercentage, isInside);
+    addPointToStorage(xPercentage, yPercentage, isInside);
+})
+
 window.onload = (event) => {
     drawAllPoints();
 }
 
-const drawPoint = (xPercentage, yPercentage) => {
+const drawPoint = (xPercentage, yPercentage, isInside) => {
     const point = document.createElement('div');
     point.className = 'point';
 
     // Установите координаты точки в процентах
     point.style.left = `${xPercentage}%`;
     point.style.top = `${yPercentage}%`;
+    point.style.backgroundColor = (isInside ? "#009900" : "#990000")
     // Добавьте точку на страницу
     imageContainer.appendChild(point);
 }
@@ -44,20 +58,31 @@ const drawAllPoints = () => {
         myObjects = [];
     } else {
         myObjects = Array.from(JSON.parse(storedObjects));
-        myObjects.forEach(function(obj, index) {
-            drawPoint(obj.x_coord, obj.y_coord)
+        myObjects.forEach(function (obj, index) {
+            drawPoint(obj.x_coord, obj.y_coord, obj.is_inside)
         });
     }
 }
 
-const calcCoords = (e) => {
-    // Рассчитайте координаты точки относительно вершины и ширины изображения
+const calcCoordsFromClick = (e) => {
     const xPercentage = (e.clientX - imageContainer.getBoundingClientRect().left) / image.width * 100;
     const yPercentage = (e.clientY - imageContainer.getBoundingClientRect().top) / image.height * 100;
     return {xPercentage, yPercentage};
+
 }
 
-const addPointToStorage = (xPercentage, yPercentage) => {
+const calcCoordsFromForm = (x, y, r) => {
+    // Рассчитайте координаты точки относительно вершины и ширины изображения
+    // const xPercentage = (e.clientX - imageContainer.getBoundingClientRect().left) / image.width * 100;
+    // const yPercentage = (e.clientY - imageContainer.getBoundingClientRect().top) / image.height * 100;
+
+    const xPercentage = (x * 50) / (1.35 * r) + 47
+    const yPercentage = (-1 * y * 50) / (1.35 * r) + 51
+
+    return {xPercentage, yPercentage};
+}
+
+const addPointToStorage = (xPercentage, yPercentage, isInside) => {
     let storedObjects = sessionStorage.getItem('results');
     let myObjects;
     if (storedObjects == null) {
@@ -65,16 +90,10 @@ const addPointToStorage = (xPercentage, yPercentage) => {
     } else {
         myObjects = Array.from(JSON.parse(storedObjects));
     }
-    let newObj = { x_coord: xPercentage, y_coord: yPercentage};
+    let newObj = {x_coord: xPercentage, y_coord: yPercentage, is_inside: isInside};
     myObjects.push(newObj);
     sessionStorage.setItem('results', JSON.stringify(myObjects));
 
-
-    // Обновление данных в sessionStorage
-    //
-    // let myObjects = JSON.parse(storedObjects);
-    //
-    // sessionStorage.setItem('results', JSON.stringify(myObjects));
 }
 
 // Создайте событие "click"
@@ -88,9 +107,12 @@ const sendRequestFromCanvas = (x, y, r) => {
     document.getElementsByName("r")[0].value = r;
     document.getElementsByName("y")[0].value = y;
     Array.from(document.querySelectorAll('input[name=x]'))[x + 4].checked = true;
-    console.log("ready to send")
 
     setSendAvailability();
     const button = document.getElementById('send_button');
     button.dispatchEvent(clickEvent);
+}
+
+const defineIsInside = (x, y, r) => {
+    return (x <= 0 && y >= 0 && (y - x) <= r / 2) || (x <= 0 && y <= 0 && (Math.pow(x, 2) + Math.pow(y, 2) <= Math.pow(r / 2, 2))) || (x >= 0 && x <= r && y <= 0 && y >= -1 * r / 2);
 }

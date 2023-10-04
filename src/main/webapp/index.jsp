@@ -23,7 +23,6 @@
   <div class="image-container">
     <img src="img/lab2_web_chart.png" id="image"/>
   </div>
-  <script type="text/javascript" src="js/drawChart.js"></script>
 
 
   <form id="form" method="GET" action="${pageContext.request.contextPath}/controller">
@@ -40,11 +39,12 @@
     <div>
 
       <label>Value Y &isin; (-3; 3)</label>
-      <input type="text" name="y" onchange="setSendAvailability()"/>
+      <input type="text" maxlength="8" name="y" onchange="setSendAvailability()"/>
     </div>
     <input id="send_button" type="submit" value="Check the hit" disabled/>
 
     <script type="text/javascript" src="js/setDate.js"></script>
+    <script type="text/javascript" src="js/drawChart.js"></script>
   </form>
   <table>
     <thead>
