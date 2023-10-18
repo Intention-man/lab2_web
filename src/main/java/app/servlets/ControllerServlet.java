@@ -1,6 +1,7 @@
 package app.servlets;
 
 import app.model.OneRes;
+import app.model.ResultsBean;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,6 +25,11 @@ public class ControllerServlet extends HttpServlet {
             OneRes oneRes = new OneRes(x, y, r);
             RequestDispatcher dispatcher;
             if (Math.abs(x) <= 4 && y > -3 && y < 3 && r > 2 && r < 5) {
+//                ResultsBean beans = (ResultsBean) req.getSession().getAttribute("table");
+//                if (beans == null) beans = new ResultsBean();
+//                beans.getRaws().clear();
+//                req.getSession().setAttribute("table", beans);
+//                getServletContext().getRequestDispatcher("/main.jsp").forward(req, resp);
                 dispatcher = getServletContext().getRequestDispatcher("/one_res");
             } else {
                 dispatcher = getServletContext().getRequestDispatcher("/incorrect-data");

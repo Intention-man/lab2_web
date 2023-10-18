@@ -1,7 +1,4 @@
 <%@ page import="app.model.OneRes" %>
-<%@ page import="app.model.ResultsBean" %>
-<%@ page import="java.util.List" %>
-<%@ page import="app.model.ResultsBean" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -46,8 +43,8 @@
     <script type="text/javascript" src="js/setDate.js"></script>
     <script type="text/javascript" src="js/drawChart.js"></script>
   </form>
-  <jsp:useBean id="oneRes" class="app.model.OneRes" scope="request" />
   <table>
+    <jsp:useBean id="results" class="app.model.ResultsBean" scope="session"/>
     <thead>
     <tr>
       <th>X</th>
@@ -57,68 +54,26 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="<%= ResultsBean.getInstance().getResults() %>" var="oneRes">
-      <tr>
-        <td><jsp:getProperty name="oneRes" property="x" /></td>
-        <td><jsp:getProperty name="oneRes" property="y" /></td>
-        <td><jsp:getProperty name="oneRes" property="r" /></td>
-        <td>
-          <c:choose>
-            <c:when test="<%= oneRes.isInside() %>">
-              &#10004;
-            </c:when>
-            <c:otherwise>
-              &#10008;
-            </c:otherwise>
-          </c:choose>
-        </td>
-      </tr>
-    </c:forEach>
+    <%
+      if (results != null) {
+        for (OneRes oneRes : results.getResults()) {
+    %>
+    <tr>
+      <td class="x"><%=oneRes.getX()%>
+      </td>
+      <td class="y"><%=oneRes.getY()%>
+      </td>
+      <td class="r"><%=oneRes.getR()%>
+      </td>
+      <td class="hit"><%=oneRes.isInside() ? "&#10004" : "&#10008"%>
+      </td>
+    </tr>
+    <%
+        }
+      }
+    %>
     </tbody>
   </table>
-<%--  <table>--%>
-<%--    <thead>--%>
-<%--    <tr>--%>
-<%--      <th>X</th>--%>
-<%--      <th>Y</th>--%>
-<%--      <th>R</th>--%>
-<%--      <th>Result</th>--%>
-<%--    </tr>--%>
-<%--    </thead>--%>
-<%--    <tbody>--%>
-
-<%--<jsp:useBean class="app.model.ResultsBean" id="bean_res"/>--%>
-
-<%--  <jsp:getProperty name="bean_res" property="results"/>--%>
-<%--<jsp:useBean id="results" scope="request" type="java.util.List"/>--%>
-<%--<c:forEach items="${results}" var="one_res">--%>
-<%--  <tr>--%>
-<%--    <td>${one_res.x}</td>--%>
-<%--    <td>${one_res.y}</td>--%>
-<%--    <td>${one_res.r}</td>--%>
-<%--    <td>${one_res.inside}</td>--%>
-<%--  </tr>--%>
-<%--</c:forEach>--%>
-
-
-<%--    <% for (OneRes oneRes : Results.getInstance().getResults()) { %>--%>
-<%--    <tr>--%>
-<%--      <td>--%>
-<%--        <%=oneRes.getX()%>--%>
-<%--      </td>--%>
-<%--      <td>--%>
-<%--        <%=oneRes.getY()%>--%>
-<%--      </td>--%>
-<%--      <td>--%>
-<%--        <%=oneRes.getR()%>--%>
-<%--      </td>--%>
-<%--      <td>--%>
-<%--        <%= oneRes.isInside() ? "&#10004" : "&#10008"%>--%>
-<%--      </td>--%>
-<%--    </tr>--%>
-<%--    <% } %>--%>
-<%--    </tbody>--%>
-<%--  </table>--%>
 </div>
 </body>
 </html>

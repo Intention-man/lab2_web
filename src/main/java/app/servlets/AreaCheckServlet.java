@@ -21,14 +21,14 @@ public class AreaCheckServlet extends HttpServlet {
             float r = Float.parseFloat(req.getParameter("r"));
             RequestDispatcher dispatcher;
             if (Math.abs(x) <= 4 && y > -3 && y < 3 && r > 2 && r < 5) {
-                OneRes oneRes = new OneRes();
-                oneRes.setX(x);
-                oneRes.setY(y);
-                oneRes.setR(r);
+                ResultsBean resultsBean = (ResultsBean) req.getSession().getAttribute("results");
+                if (resultsBean == null) resultsBean = new ResultsBean();
+
+                OneRes oneRes = new OneRes(x, y, r);
                 oneRes.setInside();
-                ResultsBean instance = ResultsBean.getInstance();
-                instance.add(oneRes);
-                instance.setLastHitResValue(oneRes.isInside());
+                resultsBean.getResults().add(oneRes);
+                req.getSession().setAttribute("results", resultsBean);
+                req.getSession().setAttribute("check", oneRes);
                 dispatcher = req.getRequestDispatcher("/result");
             } else {
                 dispatcher = getServletContext().getRequestDispatcher("/incorrect-data");

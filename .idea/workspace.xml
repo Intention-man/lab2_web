@@ -9,21 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8bb4f40e-e2b3-4ef9-8428-4fbb737325e6" name="Changes" comment="The points appear regardless of the data entry method and correctly">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/css/result.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/incorrect-data.jsp" afterDir="false" />
+    <list default="true" id="8bb4f40e-e2b3-4ef9-8428-4fbb737325e6" name="Changes" comment="Working version without jsp:useBeans">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/app/model/Results.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/model/Results.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/model/ResultsBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/model/ResultsBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/servlets/AreaCheckServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/servlets/AreaCheckServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/servlets/ControllerServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/servlets/ControllerServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/main.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/canvas.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/canvas.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/app/servlets/HelloServlet.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/drawChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/drawChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/sendRequestx.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/result.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -251,7 +246,7 @@
       <workItem from="1697547945210" duration="5054000" />
       <workItem from="1697554508774" duration="2824000" />
       <workItem from="1697557647801" duration="976000" />
-      <workItem from="1697609926236" duration="664000" />
+      <workItem from="1697609926236" duration="3413000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -277,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696404999462</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Working version without jsp:useBeans">
+      <option name="closed" value="true" />
+      <created>1697611079793</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1697611079793</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -298,6 +301,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Almost all" />
     <MESSAGE value="The points appear regardless of the data entry method and correctly" />
-    <option name="LAST_COMMIT_MESSAGE" value="The points appear regardless of the data entry method and correctly" />
+    <MESSAGE value="Working version without jsp:useBeans" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working version without jsp:useBeans" />
   </component>
 </project>

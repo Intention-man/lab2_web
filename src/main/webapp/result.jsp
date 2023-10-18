@@ -1,6 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page import="app.model.OneRes" %>
-<%@ page import="app.model.ResultsBean" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Михаил
   Date: 25.09.2023
@@ -16,7 +14,8 @@
     <title>Table</title>
 </head>
 <body class="common_body">
-<% if (ResultsBean.getInstance().getLastHitResValue()) { %>
+<jsp:useBean id="check" class="app.model.OneRes" scope="session"/>
+<% if (check.isInside()) { %>
     <div class="common success_hit_notification">
         <h1>Success!</h1>
         <a href="index.jsp">Back to main</a>

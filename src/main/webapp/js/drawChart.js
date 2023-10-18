@@ -1,7 +1,6 @@
 const image = document.getElementById('image');
 const imageContainer = document.querySelector('.image-container');
 imageContainer.addEventListener('click', (e) => {
-
     let r = document.getElementsByName("r")[0].value;
     if (isNumber(r) && r > 2 && r < 5) {
         const {xPercentage, yPercentage} = calcCoordsFromClick(e);
@@ -93,6 +92,8 @@ const clickEvent = new MouseEvent('click', {
 const sendRequestFromCanvas = (x, y, r) => {
     document.getElementsByName("r")[0].value = r;
     document.getElementsByName("y")[0].value = y.toFixed(4);
+
+    Array.from(document.querySelectorAll('input[name=x]:checked'))[0].checked = false;
     Array.from(document.querySelectorAll('input[name=x]'))[x + 4].checked = true;
 
     setSendAvailability();
