@@ -1,7 +1,7 @@
 package app.servlets;
 
 import app.model.OneRes;
-import app.model.Results;
+import app.model.ResultsBean;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,42 +15,27 @@ import java.io.IOException;
 @WebServlet(name = "oneResServlet", value = "/one_res")
 public class AreaCheckServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        try {
-
-//        PrintWriter out = resp.getWriter();
-//        out.println("<html><body>");
-//        out.println("<h1>" + "message" + "</h1>");
-//        out.println("</body></html>");
-
-        int x = Integer.parseInt(req.getParameter("x"));
-        float y = Float.parseFloat(req.getParameter("y"));
-        float r = Float.parseFloat(req.getParameter("r"));
-
-        OneRes oneRes = new OneRes();
-        oneRes.setX(x);
-        oneRes.setY(y);
-        oneRes.setR(r);
-        oneRes.setInside();
-        Results instance = Results.getInstance();
-        instance.add(oneRes);
-
-        /**** Storing Bean In Session ****/
-//        req.getSession().setAttribute("res", oneRes);
-
-//        HttpSession session = req.getSession();
-//        List<OneRes> resList = (List<OneRes>) session.getAttribute("resList");
-//        if (resList == null) {
-//            resList = new ArrayList<>();
-//            session.setAttribute("resList", resList);
-//        }
-//
-//        // Добавьте объект данных в список
-//        resList.add(oneRes);
-
-
-
-        RequestDispatcher rd = req.getRequestDispatcher("/result");
-        rd.forward(req, resp);
-
+        try{
+            int x = Integer.parseInt(req.getParameter("x"));
+            float y = Float.parseFloat(req.getParameter("y"));
+            float r = Float.parseFloat(req.getParameter("r"));
+            RequestDispatcher dispatcher;
+            if (Math.abs(x) <= 4 && y > -3 && y < 3 && r > 2 && r < 5) {
+                OneRes oneRes = new OneRes();
+                oneRes.setX(x);
+                oneRes.setY(y);
+                oneRes.setR(r);
+                oneRes.setInside();
+                ResultsBean instance = ResultsBean.getInstance();
+                instance.add(oneRes);
+                instance.setLastHitResValue(oneRes.isInside());
+                dispatcher = req.getRequestDispatcher("/result");
+            } else {
+                dispatcher = getServletContext().getRequestDispatcher("/incorrect-data");
+            }
+            dispatcher.forward(req, resp);
+        } catch (Exception exception) {
+            resp.getWriter().println(exception.getMessage());
+        }
     }
 }

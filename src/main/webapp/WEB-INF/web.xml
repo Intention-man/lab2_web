@@ -12,4 +12,14 @@
         <servlet-name>result-page</servlet-name>
         <url-pattern>/result</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>incorrect-data-page</servlet-name>
+        <jsp-file>/incorrect-data.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>incorrect-data-page</servlet-name>
+        <url-pattern>/incorrect-data</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="app.model.OneRes" %>
-<%@ page import="app.model.Results" %><%--
+<%@ page import="app.model.ResultsBean" %><%--
   Created by IntelliJ IDEA.
   User: Михаил
   Date: 25.09.2023
@@ -12,42 +12,20 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/table.css">
+    <link rel="stylesheet" type="text/css" href="css/result.css">
     <title>Table</title>
 </head>
-<body>
-
-<table>
-    <thead>
-    <tr>
-        <th>X</th>
-        <th>Y</th>
-        <th>R</th>
-        <th>Result</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for (OneRes oneRes : Results.getInstance().getResults()) { %>
-    <tr>
-        <td>
-            <%=oneRes.getX()%>
-        </td>
-
-        <td>
-            <%=oneRes.getY()%>
-        </td>
-
-        <td>
-            <%=oneRes.getR()%>
-        </td>
-
-        <td>
-            <%= oneRes.isInside() ? "&#10004" : "&#10008"%>
-        </td>
-    </tr>
-    <% } %>
-    </tbody>
-
-</table>
-<a href="index.jsp">Back to main</a>
+<body class="common_body">
+<% if (ResultsBean.getInstance().getLastHitResValue()) { %>
+    <div class="common success_hit_notification">
+        <h1>Success!</h1>
+        <a href="index.jsp">Back to main</a>
+    </div>
+<% } else {%>
+    <div class="common fail_hit_notification">
+        <h1>Fail(</h1>
+        <a href="index.jsp">Back to main</a>
+    </div>
+<%}%>
 </body>
 </html>
