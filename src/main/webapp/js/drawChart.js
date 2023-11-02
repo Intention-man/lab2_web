@@ -93,7 +93,9 @@ const sendRequestFromCanvas = (x, y, r) => {
     document.getElementsByName("r")[0].value = r;
     document.getElementsByName("y")[0].value = y.toFixed(4);
 
-    Array.from(document.querySelectorAll('input[name=x]:checked'))[0].checked = false;
+    if (Array.from(document.querySelectorAll('input[name=x]:checked'))[0]){
+        Array.from(document.querySelectorAll('input[name=x]:checked'))[0].checked = false;
+    }
     Array.from(document.querySelectorAll('input[name=x]'))[x + 4].checked = true;
 
     setSendAvailability();
